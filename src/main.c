@@ -5,7 +5,7 @@
 #include "emu.h"
 #include "lang.h"
 #include "vmachine.h"
-INCBIN(rom, "cattrax.bin");
+INCBIN(rom, "cattrax.bin"); //This is the test ROM, Cat Trax. Not included.
 
 u32 autosleeptimer;
 PAD keypad;
