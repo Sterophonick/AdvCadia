@@ -14,16 +14,16 @@ void emuMain();
 int main() 
 {
 	hrt_Init();
-	        iar = 0;
-        cpl = 53;
-        psu = 0x62;
-        psl = 0x02;
-        ras[0] = 0x172;
-        ras[1] = 0x986;
-        r[0] = 0x10;
-        r[1] = 0;
-        r[2] = 0x4B;
-        r[3] = 1;
+	iar = 0;
+    cpl = 53;
+    psu = 0x62;
+    psl = 0x02;
+    ras[0] = 0x172;
+    ras[1] = 0x986;
+    r[0] = 0x10;
+    r[1] = 0;
+    r[2] = 0x4B;
+    r[3] = 1;
 	hrt_EnableRTC();
 	hrt_BGSetMapBase(2,0x1F);
 	hrt_SetBGX(3,24);

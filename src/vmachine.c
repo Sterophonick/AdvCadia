@@ -21,14 +21,14 @@ u8 oldpitch;
 extern PAD keypad;
 
 void DMAFastCopy(void* source, void* dest, unsigned int count, unsigned int mode)
-{   REG_DMA3SAD = (unsigned int) source;
-        REG_DMA3DAD = (unsigned int) dest;
-        REG_DMA3CNT = count | mode;
-   }
+{
+	REG_DMA3SAD = (unsigned int) source;
+    REG_DMA3DAD = (unsigned int) dest;
+    REG_DMA3CNT = count | mode;
+}
 
 void collidesprites(void)
-{   /* This doesn't use screen[], thus it is safe at any point in the frame. */
-
+{
     t = 0xFF;
     if (collision(0, 1))
     {   t &=  ~1; // AND with %11111110 (clear bit 0)
@@ -84,20 +84,22 @@ u8 collision(u8 first, u8 second)
 
 void uvi(void)
 {
-   psu &= ~(PSU_S);
+    psu &= ~(PSU_S);
     memory[A_CHARLINE] =
     memory[A_P1PADDLE] =       // "The potentiometer is set to $FF
     memory[A_P2PADDLE] = 0xFF; // on the trailing edge of VRST."
 	slice = (cpl * 207) - overcalc;
 	s2650_execute();
     for (row = 0; row < 13; row++)
-    {   for (column = 0; column < 16; column++)
+    {
+		for (column = 0; column < 16; column++)
         {
 			ArcadiaMap[((row) * 32) + 7 + column] = memory[(0x1800 + (row * 16) + column)];
 		}
 	}
     for (row = 0; row < 13; row++)
-    {   for (column = 0; column < 16; column++)
+    {
+		for (column = 0; column < 16; column++)
         {
 			ArcadiaMap[((row+13 ) * 32) + 7 + column] = memory[(0x1A00 + (row * 16) + column)];
 		}
@@ -115,13 +117,15 @@ void uvi(void)
     spritey[2] = (s16) 256 - memory[A_SPRITE2Y];
     spritex[3] =               memory[A_SPRITE3X] - 27;
     spritey[3] = (s16) 256 - memory[A_SPRITE3Y];
-    for (register int i= 0; i< 4; i++)
+    for(register int i= 0; i< 4; i++)
     {   // check sprite position
-        if (memory[A_SPRITE0X + (2 * i)] > 227)
+        if(memory[A_SPRITE0X + (2 * i)] > 227)
         {   // "If the HC is set to >227, the object is effectively
             // removed from the video field."
             sprskip[i] = TRUE;
-        } else {   
+        }
+		else
+		{   
 			sprskip[i] = FALSE;
 		}
    }
@@ -137,7 +141,8 @@ void uvi(void)
     memory[A_CHARLINE] = 0xFF;
 	DMAFastCopy(&ArcadiaMap, &se_mem[31][0], 1024, 0x80000000);
 	if (memory[A_PITCH] != oldpitch)
-    {   oldpitch = memory[A_PITCH];
+    {
+		oldpitch = memory[A_PITCH];
         playsound();
     }
 }
@@ -146,30 +151,45 @@ void EmuInput()
 {
 	hrt_GetPad(&keypad);
 	t = 0;
-    if (hrt_IsKeyPressed(START))
-    {   t |= 1;
+    if(hrt_IsKeyPressed(START))
+    {
+		t |= 1;
     }
-    if (hrt_IsKeyPressed(SELECT))
-    {   t |= 2;
+    if(hrt_IsKeyPressed(SELECT))
+    {
+		t |= 2;
     }
-    memory[A_CONSOLE] = t;
-
-if (memory[A_BGCOLOUR] & 0x40) // paddle interpolation bit
-        {   if (hrt_IsKeyPressed(LEFT))
-            {   memory[A_P1PADDLE] = 1;
-            } elif (hrt_IsKeyPressed(RIGHT))
-            {   memory[A_P1PADDLE] = 254;
-            } else
-            {   memory[A_P1PADDLE] = 112;
-        }   }
-        else
-        {   if (hrt_IsKeyPressed(UP))
-            {   memory[A_P1PADDLE] = 1;
-            } elif (hrt_IsKeyPressed(DOWN))
-            {   memory[A_P1PADDLE] = 254;
-            } else
-            {   memory[A_P1PADDLE] = 112;
-    }   }   
+    memory[A_CONSOLE] = t; //Set the key register on the console unit
+	if(memory[A_BGCOLOUR] & 0x40) // paddle interpolation bit
+    {   
+		if (hrt_IsKeyPressed(LEFT))
+        {
+			memory[A_P1PADDLE] = 1;
+        }
+		elif (hrt_IsKeyPressed(RIGHT))
+        {
+			memory[A_P1PADDLE] = 254;
+        }
+		else
+        {
+			memory[A_P1PADDLE] = 112;
+        }
+	}
+	else
+    {
+		if (hrt_IsKeyPressed(UP))
+        {
+			memory[A_P1PADDLE] = 1;
+        }
+		elif (hrt_IsKeyPressed(DOWN))
+		{
+			memory[A_P1PADDLE] = 254;
+        }
+		else
+        {
+			memory[A_P1PADDLE] = 112;
+		}
+	}   
 	if(hrt_IsKeyPressed(L) && hrt_IsKeyPressed(R))
 	{
 		emuMenu();
