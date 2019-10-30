@@ -4,7 +4,7 @@
 #include "sound.h"
 #include "emu.h"
 #include "lang.h"
-#include "vmachine.h"
+#include "vmachine.h" 
 INCBIN(rom, "cattrax.bin"); //This is the test ROM, Cat Trax. Not included.
 
 u32 autosleeptimer;
@@ -22,8 +22,10 @@ int main()
     ras[1] = 0x986;
     r[0] = 0x10;
     r[1] = 0;
-    r[2] = 0x4B;
+    r[2] = 0x4B; 
     r[3] = 1;
+	hrt_DSPEnableBG(2);
+	hrt_DSPDisableForceBlank();
 	hrt_EnableRTC();
 	hrt_BGSetMapBase(2,0x1F);
 	hrt_SetBGX(3,24);

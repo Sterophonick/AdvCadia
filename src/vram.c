@@ -95,8 +95,8 @@ void sprite()
         }
 		else
         {  
-			hrt_SetOBJX(i, x + 36);
-            hrt_SetOBJY(i, ((y-24 ))*.77);
+			hrt_SetOBJX(i, x + 40);
+            hrt_SetOBJY(i, ((y-17 ))*.77);
 			SpriteImagery[i][(yy * 4) + (xx / 2)] &= 0x0F;
         }
         for (yy = 0; yy < 8; yy++) // for each y-line of the sprite

@@ -159,37 +159,16 @@ void EmuInput()
     {
 		t |= 2;
     }
-    memory[A_CONSOLE] = t; //Set the key register on the console unit
-	if(memory[A_BGCOLOUR] & 0x40) // paddle interpolation bit
-    {   
-		if (hrt_IsKeyPressed(LEFT))
-        {
-			memory[A_P1PADDLE] = 1;
-        }
-		elif (hrt_IsKeyPressed(RIGHT))
-        {
-			memory[A_P1PADDLE] = 254;
-        }
-		else
-        {
-			memory[A_P1PADDLE] = 112;
-        }
-	}
-	else
-    {
-		if (hrt_IsKeyPressed(UP))
-        {
-			memory[A_P1PADDLE] = 1;
-        }
-		elif (hrt_IsKeyPressed(DOWN))
-		{
-			memory[A_P1PADDLE] = 254;
-        }
-		else
-        {
-			memory[A_P1PADDLE] = 112;
-		}
-	}   
+    memory[A_CONSOLE] = t; //Set the key register on the console unit  
+		 if (hrt_IsKeyPressed(LEFT))
+         {   memory[A_P1PADDLE] = 1;
+         } elif (hrt_IsKeyPressed(RIGHT))
+         {   memory[A_P1PADDLE] = 254;
+         } else
+         {   memory[A_P1PADDLE] = 112;   
+		 }
+
+	
 	if(hrt_IsKeyPressed(L) && hrt_IsKeyPressed(R))
 	{
 		emuMenu();
@@ -198,6 +177,6 @@ void EmuInput()
 
 void init()
 {
-	memcpy(&memory[0], REG_POGOFILEPTR, 4096);
-	//memcpy(&memory[0], rom, 4096);
+	//memcpy(&memory[0], REG_POGOFILEPTR, 4096);
+	memcpy(&memory[0], rom, 4096);
 }

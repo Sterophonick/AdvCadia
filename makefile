@@ -5,7 +5,7 @@ CPPFILES =
 ASM =
 CFLAGS = -DHRT_WITH_LIBHEART -Wall -march=armv4t -Wno-switch -Wno-multichar -ffast-math -mlong-calls -mcpu=arm7tdmi -mtune=arm7tdmi -marm -faggressive-loop-optimizations -fverbose-asm 
 ARCH =  -mthumb-interwork
-SPECS = -specs=gba_mb.specs
+SPECS = -specs=gba.specs
 PREFIX = C:\devkitPro\devkitARM\bin\arm-none-eabi-
 
 default: advcadia.gba
