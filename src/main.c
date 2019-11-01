@@ -35,10 +35,8 @@ int main()
 	hrt_DSPDisableForceBlank();
 	hrt_FXEnableOBJ(0);
 	hrt_FXEnableBG(0,0);
-	//hrt_BGSet256Color(0);
 	hrt_DSPEnableOBJ();
 	hrt_DSPEnableLinearOBJ();
-	//Initialize();
 	hrt_FXSetBlendMode(FX_MODE_DARKEN);
 	hrt_FXEnableBG(2,0);
 	autosleeptimer = 0;
